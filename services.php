@@ -16,8 +16,10 @@
 </form>
 <?php
 if (isset($_GET['nimetus'])) {
-    $read=[];
+    $read=array();
 
+
+    $id = array_push($read,"21");
     $nimetus = array_push($read, $_GET['nimetus']);
     $kirjeldus = array_push($read, $_GET['kirjeldus']);
     $hind = array_push($read, $_GET['hind']);
@@ -41,7 +43,7 @@ if (isset($_GET['nimetus'])) {
     //kõikide ridade saamine feof = file-end-of-file
     while (!feof($minu_csv)) {
         //ühe rea saamine, eraldatud komaga
-        $rida = fgetcsv($minu_csv, filesize($products), ",");
+        $rida = fgetcsv($minu_csv, filesize($products)-1, ",");
         //print_r($rida);
         // echo "$rida[1] - $rida[3]€<br>";
         echo '
