@@ -18,7 +18,6 @@
 if (isset($_GET['nimetus'])) {
     $read=array();
 
-
     $id = array_push($read,"21");
     $nimetus = array_push($read, $_GET['nimetus']);
     $kirjeldus = array_push($read, $_GET['kirjeldus']);
@@ -28,6 +27,7 @@ if (isset($_GET['nimetus'])) {
     $fp = fopen($path, 'a'); 
     fputcsv($fp, $read);
     //print_r($nimetus);
+    fclose($fp);
 }
 
 ?>
@@ -43,23 +43,25 @@ if (isset($_GET['nimetus'])) {
     //kõikide ridade saamine feof = file-end-of-file
     while (!feof($minu_csv)) {
         //ühe rea saamine, eraldatud komaga
-        $rida = fgetcsv($minu_csv, filesize($products)-1, ",");
+        $rida = fgetcsv($minu_csv, filesize($products), ",");
         //print_r($rida);
         // echo "$rida[1] - $rida[3]€<br>";
-        echo '
-        <div class="col">
-            <div class="card">
-                <img src="https://picsum.photos/400/400" class="card-img-top" alt="'.$rida[1].'">
-                <div class="card-body">
-                <h5 class="card-title">'.$rida[1].'</h5>
-                <p class="card-text">'.$rida[2].'</p>
-                <p class="card-text">'.$rida[3].'€</p>
+        if (is_array($rida)) {
+            echo '
+            <div class="col">
+                <div class="card">
+                    <img src="https://picsum.photos/400/400" class="card-img-top" alt="'.$rida[1].'">
+                    <div class="card-body">
+                    <h5 class="card-title">'.$rida[1].'</h5>
+                    <p class="card-text">'.$rida[2].'</p>
+                    <p class="card-text">'.$rida[3].'€</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        ';
-    }
-    
+            ';
+            }
+        }
+    fclose($minu_csv);
 ?>
 
 </div>
