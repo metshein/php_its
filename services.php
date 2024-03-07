@@ -1,4 +1,15 @@
 <h1>Teenused</h1>
+<?php
+    if (isset($_GET['ok'])) {
+        echo '<div class="alert alert-success" role="alert">
+        Toote lisamine õnnestus!
+      </div>
+      ';
+    }
+
+?>
+
+
 <form action="" method="post" enctype="multipart/form-data">
     <label for="nimetus">Toote nimetus</label>
     <input type="text" name="nimetus" required><br>
@@ -18,8 +29,10 @@
 </form>
 <?php
 if (isset($_POST['nimetus'])) {
+
     $ajutine_fail =  $_FILES['lisapilt']['tmp_name'];
     move_uploaded_file($ajutine_fail, 'img/'.$_FILES['lisapilt']['name']);
+
     $read=array();
 
     $id = array_push($read,count(file('products.csv'))+1);
@@ -36,7 +49,7 @@ if (isset($_POST['nimetus'])) {
     //print_r($nimetus);
     fclose($fp);
     //suunab "puhtale" lehele
-    header('Location:03.php?page=services');
+    header('Location:03.php?page=services&ok');
 }
 
 ?>
