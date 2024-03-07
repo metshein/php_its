@@ -18,7 +18,8 @@
 if (isset($_GET['nimetus'])) {
     $read=array();
 
-    $id = array_push($read,"21");
+    $id = array_push($read,count(file('products.csv'))+1);
+
     $nimetus = array_push($read, $_GET['nimetus']);
     $kirjeldus = array_push($read, $_GET['kirjeldus']);
     $hind = array_push($read, $_GET['hind']);
