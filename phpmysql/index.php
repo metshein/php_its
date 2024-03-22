@@ -18,13 +18,31 @@
     </form>
 <div class="row row-cols-1 row-cols-md-6 g-4 pt-4">
       <?php
+//kustutamine
+    if(!empty($_GET["del"]) && !empty($_GET["id"])){
+        $del = $_GET["del"];
+        $id = $_GET["id"];
+
+        $paring = "DELETE FROM albumid WHERE id=$id";
+        $valjund = mysqli_query($yhendus, $paring);
+        if($valjund){
+            // echo "Kustutamine õnnestus!";
+            header("Location: index.php?msg=true");
+        }else{
+            // echo "Kustutamine ebaõnnestus!";
+            header("Location: index.php?msg=false");
+        }
+    }
+
+
+
 //otsing
     if (!empty($_GET["s"])) {
         $s = $_GET["s"];
-        $paring = 'SELECT album, hind FROM albumid WHERE album LIKE "%'.$s.'%" ';
+        $paring = 'SELECT id, album, hind FROM albumid WHERE album LIKE "%'.$s.'%" ';
     } else {
         //päring mille saadan andmebaasi
-        $paring = " SELECT album, hind FROM albumid ORDER BY artist ASC LIMIT 10";
+        $paring = " SELECT id, album, hind FROM albumid ORDER BY artist ASC LIMIT 10";
     }
 
 
@@ -43,6 +61,7 @@
                     <h5 class="card-title">'.$rida['album'].'</h5>
                     <p class="card-text">'.$rida['hind'].'€</p>
                     <a href="#" class="btn btn-danger">Osta</a>
+                    <a href="index.php?del=kustuta&id='.$rida['id'].'" class="btn btn-warning">Kustuta</a>
                 </div>
                 </div>
             </div>
