@@ -12,12 +12,42 @@
     
     <div class="container">
     <h1>Maailma imelikumad palad!</h1>
+<h2>Uue albumi lisamine</h2>
+<form action="#" method="get">
+    artist <input type="text" name="artist"><br>
+    album <input type="text" name="album"><br>
+    aasta <input type="number" name="aasta" min="1900"><br>
+    hind <input type="number" name="hind" step="0.01"><br>
+    <input type="submit" value=" + Lisa uus" name="lisa">
+</form>
+
+
+<h2>Otsing</h2>
     <form action="" method="get">
         Otsi: <input type="text" name="s">
         <input type="submit" value="Otsi">
     </form>
 <div class="row row-cols-1 row-cols-md-6 g-4 pt-4">
       <?php
+//lisamine
+if(!empty($_GET["lisa"])){
+    $artist = $_GET["artist"];
+    $album = $_GET["album"];
+    $aasta = $_GET["aasta"];
+    $hind = $_GET["hind"];
+
+    $paring = "INSERT INTO albumid(artist, album, aasta, hind) VALUES ('$artist', '$album', '$aasta', '$hind')";
+    //print_r($paring);
+    $valjund = mysqli_query($yhendus, $paring);
+        if($valjund){
+            header("Location: index.php?msg=true");
+            echo "Lisamine õnnestus!";
+        } else {
+            header("Location: index.php?msg=false");
+            echo "Lisamine ebaõnnestus!";
+        }
+}
+
 //kustutamine
     if(!empty($_GET["del"]) && !empty($_GET["id"])){
         $del = $_GET["del"];
