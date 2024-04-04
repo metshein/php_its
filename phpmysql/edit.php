@@ -15,15 +15,32 @@
 
 <form action="#" method="get">
 <?php
+if (!empty($_GET['id']) && !empty($_GET['muuda'])) {
+    $id = $_GET["id"];
+    $artist = $_GET["artist"];
+    $album = $_GET["album"];
+    $aasta = $_GET["aasta"];
+    $hind = $_GET["hind"];
+
+    $paring = "UPDATE albumid 
+    SET artist = '$artist', album = '$album', aasta = '$aasta', hind = '$hind' 
+    WHERE id = $id";
+    //print_r($paring);
+    $valjund = mysqli_query($yhendus, $paring);
+    header("Location: index.php?msg=true");
+}
+
 if (!empty($_GET['id'])) {
     $id = $_GET['id'];
+    echo($id);
+
     $paring = "SELECT * FROM albumid WHERE id=$id";
     // print_r($paring);
     $valjund = mysqli_query($yhendus, $paring);
     $rida = mysqli_fetch_assoc($valjund);
     // print_r($rida);
     echo '
-    id <input type="number" name="id" disabled value="'.$rida['id'].'"><br>
+    <input type="number" name="id" hidden value="'.$rida['id'].'"><br>
     artist <input type="text" name="artist" value="'.$rida['artist'].'"><br>
     album <input type="text" name="album" value="'.$rida['album'].'"><br>
     aasta <input type="number" name="aasta" min="1900" value="'.$rida['aasta'].'"><br>
@@ -31,6 +48,10 @@ if (!empty($_GET['id'])) {
     <input type="submit" value="Muuda" name="muuda">
     ';
 }
+
+
+
+
 ?>
 </form>
 
