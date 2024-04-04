@@ -10,7 +10,6 @@ if (!empty($_GET['kasutaja']) && !empty($_GET['parool']) ) {
     } else {
         echo "Poovi uuesti";
     }
-
 }
 ?>
 
