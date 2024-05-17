@@ -2,10 +2,10 @@
     //vaja meeles pidada, keel, theme
     // setcookie("nimi","Mario", time()-3600);
 
-    //ostukord, login
+    //ostukorv, login
     // session_start();
-    // $_SESSION['nimi'] = "Rain";
-    // print_r($_SESSION['nimi']);
+    // $_SESSION['login'] = "true";
+    // var_dump($_SESSION['login']);
 
     $pw = "admin123";
 
